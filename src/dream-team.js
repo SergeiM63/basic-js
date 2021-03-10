@@ -1,8 +1,15 @@
 const CustomError = require("../extensions/custom-error");
 
-module.exports = function createDreamTeam( members ) {
-  return members
-  	.sort()
-  	.map(item => item.slice(0, 1).toUpperCase())
-  	.join("");
-};
+module.exports = function createDreamTeam(members) {
+  if (!Array.isArray(members)) return false;
+
+  return members.reduce((abbr, memberName) => (
+    (typeof memberName === 'string') ?
+      abbr + memberName.trim().slice(0, 1) :
+      abbr
+  ), "")
+    .toUpperCase()
+    .split('')
+    .sort()
+    .join('')
+}
